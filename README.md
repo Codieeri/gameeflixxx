@@ -50,7 +50,7 @@ gameflix/
 
 ## 🚀 Live Demo
 
-👉 https://gameeflixxx-1.onrender.com/
+👉 (https://gameefilixxx.netlify.app/)
 
 ---
 
@@ -84,14 +84,14 @@ http://localhost:3030
 
 ## 🌐 Deployment
 
-### Frontend (Render Static Site)
+### Frontend (Netlify)
 
 * Build Command: *(empty)*
 * Publish Directory: `.`
 
 ---
 
-### Backend (Render Web Service)
+### Backend (Netlify)
 
 * Runtime: Python 3
 * Build Command:
