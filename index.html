@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GAMEFLIX - Free Game Discovery</title>
-<link rel="icon" type="image/jpeg" href="favicon.jpg">
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body data-theme="dark">
@@ -22,14 +22,7 @@
 <!-- ========== NAVBAR ========== -->
 <nav id="navbar">
   <div class="nav-inner">
-
-    <!-- LEFT: Logo + Brand -->
-    <a href="#" class="logo" onclick="scrollToTop(event)">
-      <img src="logo.png" alt="GameFlix Logo" class="logo-icon">
-      <span class="brand-text">GAMEFLIX</span>
-    </a>
-
-    <!-- CENTER: Links -->
+    <a href="#" class="logo" onclick="scrollToTop(event)"><img src="assets/logo.png" alt="GameFlix Logo" class="logo-icon">GAMEFLIX</a>
     <div class="nav-links" id="nav-links">
       <a href="#" onclick="scrollToTop(event)">Home</a>
       <a href="#" onclick="scrollToSection(event,'section-popular')">Popular</a>
@@ -37,7 +30,7 @@
       <a href="#" onclick="scrollToSection(event,'section-horror')">Horror</a>
       <a href="#" onclick="scrollToSection(event,'section-new-releases')">New Releases</a>
     </div>
- <div class="nav-right">
+    <div class="nav-right">
       <div id="search-box">
         <svg class="search-icon-pos" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="text" id="search-input" placeholder="Search games..." autocomplete="off">
@@ -54,6 +47,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
         Sign In
       </button>
+
       <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -64,7 +58,7 @@
     <a href="#" onclick="scrollToTop(event);closeMobileMenu()">Home</a>
     <a href="#" onclick="scrollToSection(event,'section-popular');closeMobileMenu()">Popular</a>
     <a href="#" onclick="scrollToSection(event,'section-adventure');closeMobileMenu()">Adventure</a>
-    <a href="#" onclick="scrollToSection(event,'section-horror');closeMobileMenu()">Horror</a>
+    <a href="#" onclick="scrollToSection(event,'section-horror');closeMobileMenu()"Horror</a>
     <a href="#" onclick="scrollToSection(event,'section-new-releases');closeMobileMenu()">New Releases</a>
   </div>
   <div class="navbar-bar"><div class="navbar-shimmer"></div></div>
@@ -97,10 +91,7 @@
 </div>
 
 <!-- ========== LIGHTBOX ========== -->
-
-<div id="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" alt="Screenshot" style="display:none;">
-</div>
+<div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src="" alt="Screenshot"></div>
 
 <!-- ========== AUTH MODAL ========== -->
 <div id="auth-modal" class="auth-modal">
@@ -181,83 +172,6 @@
   </div>
 </div>
 
-<!-- ========== FOOTER ========== -->
-<footer id="footer">
-  <p class="footer-credits">Made By Riya & GameFlix Development Team With &#x2764;&#xFE0F;</p>
-</footer>
-  
-<script>
-  <!-- Screenshot Modal -->
-<div id="screenshotModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:9999; justify-content:center; align-items:center;" onclick="closeScreenshotModal()">
-  <button onclick="closeScreenshotModal()" style="position:absolute; top:20px; right:30px; color:white; font-size:2rem; background:none; border:none; cursor:pointer;">&times;</button>
-  <img id="screenshotFull" src="" style="max-width:90vw; max-height:90vh; border-radius:8px; box-shadow:0 0 40px rgba(0,0,0,.5);" />
-  <div id="screenshotCounter" style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); color:white; font-size:.9rem; background:rgba(0,0,0,.6); padding:6px 14px; border-radius:20px;"></div>
-  <button id="screenshotPrev" onclick="event.stopPropagation(); navigateScreenshot(-1)" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); color:white; font-size:2rem; background:rgba(0,0,0,.5); border:none; border-radius:50%; width:50px; height:50px; cursor:pointer;">&#8249;</button>
-  <button id="screenshotNext" onclick="event.stopPropagation(); navigateScreenshot(1)" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); color:white; font-size:2rem; background:rgba(0,0,0,.5); border:none; border-radius:50%; width:50px; height:50px; cursor:pointer;">&#8250;</button>
-</div>
-
-<!-- Inside your game detail card, add this where you want screenshots to appear -->
-<div id="screenshotSection" style="display:none; margin-top:16px;">
-  <h3 style="color:#fff; font-size:1.1rem; margin-bottom:10px;">Screenshots</h3>
-  <div id="screenshotGrid" style="display:flex; gap:10px; overflow-x:auto; padding-bottom:8px;"></div>
-</div>
-    let currentScreenshots = [];
-let currentScreenshotIndex = 0;
-
-async function fetchScreenshots(appid) {
-  try {
-    const res = await fetch(`/api/games/${appid}/screenshots`);
-    const data = await res.json();
-    currentScreenshots = data.screenshots || [];
-    const grid = document.getElementById('screenshotGrid');
-    const section = document.getElementById('screenshotSection');
-    if (currentScreenshots.length === 0) {
-      section.style.display = 'none';
-      return;
-    }
-    section.style.display = 'block';
-    grid.innerHTML = '';
-    currentScreenshots.forEach((ss, i) => {
-      const img = document.createElement('img');
-      img.src = ss.path_thumbnail;
-      img.alt = 'Screenshot ' + (i + 1);
-      img.style.cssText = 'height:120px; border-radius:6px; cursor:pointer; object-fit:cover; flex-shrink:0; transition:transform .2s;';
-      img.onmouseover = () => img.style.transform = 'scale(1.05)';
-      img.onmouseout = () => img.style.transform = 'scale(1)';
-      img.onclick = () => openScreenshotModal(i);
-      grid.appendChild(img);
-    });
-  } catch (e) {
-    console.error('Screenshot fetch error:', e);
-  }
-}
-
-function openScreenshotModal(index) {
-  currentScreenshotIndex = index;
-  const modal = document.getElementById('screenshotModal');
-  const full = document.getElementById('screenshotFull');
-  const counter = document.getElementById('screenshotCounter');
-  full.src = currentScreenshots[index].path_full;
-  counter.textContent = (index + 1) + ' / ' + currentScreenshots.length;
-  modal.style.display = 'flex';
-}
-
-function closeScreenshotModal() {
-  document.getElementById('screenshotModal').style.display = 'none';
-}
-
-function navigateScreenshot(dir) {
-  currentScreenshotIndex += dir;
-  if (currentScreenshotIndex < 0) currentScreenshotIndex = currentScreenshots.length - 1;
-  if (currentScreenshotIndex >= currentScreenshots.length) currentScreenshotIndex = 0;
-  const full = document.getElementById('screenshotFull');
-  const counter = document.getElementById('screenshotCounter');
-  full.src = currentScreenshots[currentScreenshotIndex].path_full;
-  counter.textContent = (currentScreenshotIndex + 1) + ' / ' + currentScreenshots.length;
-}
-
-// Call this when a game is clicked/opened — replace APPID with your game's appid
-// fetchScreenshots(APPID);
 <script src="js/app.js"></script>
 </body>
 </html>
