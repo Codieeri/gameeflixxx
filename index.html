@@ -187,6 +187,20 @@
 </footer>
   
 <script>
+  <!-- Screenshot Modal -->
+<div id="screenshotModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:9999; justify-content:center; align-items:center;" onclick="closeScreenshotModal()">
+  <button onclick="closeScreenshotModal()" style="position:absolute; top:20px; right:30px; color:white; font-size:2rem; background:none; border:none; cursor:pointer;">&times;</button>
+  <img id="screenshotFull" src="" style="max-width:90vw; max-height:90vh; border-radius:8px; box-shadow:0 0 40px rgba(0,0,0,.5);" />
+  <div id="screenshotCounter" style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); color:white; font-size:.9rem; background:rgba(0,0,0,.6); padding:6px 14px; border-radius:20px;"></div>
+  <button id="screenshotPrev" onclick="event.stopPropagation(); navigateScreenshot(-1)" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); color:white; font-size:2rem; background:rgba(0,0,0,.5); border:none; border-radius:50%; width:50px; height:50px; cursor:pointer;">&#8249;</button>
+  <button id="screenshotNext" onclick="event.stopPropagation(); navigateScreenshot(1)" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); color:white; font-size:2rem; background:rgba(0,0,0,.5); border:none; border-radius:50%; width:50px; height:50px; cursor:pointer;">&#8250;</button>
+</div>
+
+<!-- Inside your game detail card, add this where you want screenshots to appear -->
+<div id="screenshotSection" style="display:none; margin-top:16px;">
+  <h3 style="color:#fff; font-size:1.1rem; margin-bottom:10px;">Screenshots</h3>
+  <div id="screenshotGrid" style="display:flex; gap:10px; overflow-x:auto; padding-bottom:8px;"></div>
+</div>
 <script src="js/app.js"></script>
 </body>
 </html>
