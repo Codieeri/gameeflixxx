@@ -183,19 +183,80 @@ ul,ol{list-style:none}
 
 /* ========== NAVBAR ========== */
 #navbar{
-  position:fixed;top:0;left:0;right:0;z-index:50;height:var(--navbar-h);
-  background:var(--navbar-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  display:flex;align-items:center;padding:0 16px;transition:background .3s;
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:50;
+  height:var(--navbar-h);
+  background:var(--navbar-bg);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  transition:background .3s;
 }
-#navbar.kids-mode{--red:#a855f7;--navbar-bg:rgba(88,28,135,0.85)}
-#navbar .nav-inner{display:flex;align-items:center;width:100%;max-width:1400px;margin:0 auto}
-#navbar .logo{font-size:1.8rem;font-weight:900;color:#e50914;letter-spacing:2px;margin-right:24px;
-  text-shadow:0 0 20px rgba(229,9,20,0.4);white-space:nowrap;transition:color .3s;display:flex;align-items:center;gap:10px}
-#navbar .logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
+
+#navbar.kids-mode{
+  --red:#a855f7;
+  --navbar-bg:rgba(88,28,135,0.85);
 }
+
+#navbar .nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between; /* 🔥 IMPORTANT */
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+}
+
+/* LOGO CONTAINER */
+#navbar .logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  margin-right:20px;
+}
+
+/* LOGO IMAGE */
+.logo-icon{
+  width:40px;
+  height:40px;
+  object-fit:contain;
+}
+
+/* GAMEFLIX TEXT */
+.brand-text{
+  font-size:1.8rem;
+  font-weight:900;
+  color:#e50914;
+  letter-spacing:2px;
+  text-shadow:0 0 20px rgba(229,9,20,0.4);
+  white-space:nowrap;
+  transition:color .3s;
+}
+
+#navbar .nav-links{
+  display:none;
+  gap:25px;
+  align-items:center;
+}
+
+@media(min-width:768px){
+  #navbar .nav-links{
+    display:flex;
+  }
+}
+
+/* RIGHT SIDE */
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+
 #navbar.kids-mode .logo{color:#a855f7;text-shadow:0 0 20px rgba(168,85,247,0.4)}
 #navbar.kids-mode .logo .logo-icon{filter:drop-shadow(0 0 8px rgba(168,85,247,0.5))}
 #navbar .nav-links{display:none;gap:16px;align-items:center}
