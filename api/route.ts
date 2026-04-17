@@ -46,7 +46,7 @@ export async function GET(
       return NextResponse.json({ screenshots: [], fullDescription: '' }, { status: 200 });
     }
 
-    const screenshots = (appData.data.screenshots || []).slice(0, 10).map((s) => ({
+    const screenshots = (appData.data.screenshots || []).slice(0, 6).map((s) => ({
       id: s.id,
       path_thumbnail: s.path_thumbnail,
       path_full: s.path_full,
