@@ -134,4 +134,4 @@ cd backend && python app.py
 
 ## ⭐ Support
 
-If you like this project, give it a ⭐ on GitHub!
+If you like this project, give it a ⭐ on GitHub.!
